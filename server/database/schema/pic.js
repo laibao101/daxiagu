@@ -3,10 +3,11 @@ const {Schema} = mongoose;
 const {ObjectId} = Schema.Types;
 
 const PicScheme = new Schema({
-    picUrl: {
+    picKey: {
         type: String,
         unique: true,
     },
+    picHash: String,
     like: Number,
     comments: [{
         type:ObjectId,

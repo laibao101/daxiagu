@@ -1,8 +1,15 @@
 import mongoose from 'mongoose';
+import glob from 'glob';
+import {resolve} from 'path';
 import {db} from '../config';
 
 mongoose.Promise = global.Promise;
 const url = `mongodb://${db.host}:${db.port}/${db.database}`;
+
+
+export const initSchemas = () => {
+    glob.sync(resolve(__dirname, './schema', '**/*.js')).forEach(require);
+};
 
 export const connect = async () => {
     let maxConnectTimes = 0;

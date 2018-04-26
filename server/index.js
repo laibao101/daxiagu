@@ -1,6 +1,7 @@
 import Koa from 'koa';
-import {connect} from "./database";
+import {connect, initSchemas} from "./database";
 import {router} from "./middlewares/router";
+import {startUpload} from "./upload";
 
 class App {
     constructor() {
@@ -19,7 +20,9 @@ class App {
         router(this.app);
     }
 
+
     async connect() {
+        initSchemas();
         return connect();
     }
 
@@ -29,3 +32,5 @@ class App {
 }
 
 const app = new App();
+
+startUpload();

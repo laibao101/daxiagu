@@ -2,7 +2,11 @@ import qiniu from "qiniu";
 import nanoid from 'nanoid';
 import {resolve} from 'path';
 import fs from 'fs';
+import mongoose from 'mongoose';
 import {qiniuConfig} from '../config';
+import '../database/schema/pic';
+
+const Pic = mongoose.model('Pic');
 
 const mac = new qiniu.auth.digest.Mac(qiniuConfig.AK, qiniuConfig.SK);
 const options = {
@@ -18,7 +22,7 @@ const config = new qiniu.conf.Config();
 config.zone = qiniu.zone.Zone_z2;
 
 const uploadToQiniu = async (filename) => {
-    const localFile = resolve(__dirname, '../pics', filename);
+    const localFile = resolve(__dirname, '../../pics', filename);
     const formUploader = new qiniu.form_up.FormUploader(config);
     const putExtra = new qiniu.form_up.PutExtra();
     const key = nanoid() + '.png';
@@ -32,7 +36,6 @@ const uploadToQiniu = async (filename) => {
             }
             if (respInfo.statusCode === 200) {
                 console.log('上传文件成功');
-                resolve(respBody);
             } else {
                 reject(respBody);
             }
@@ -40,16 +43,23 @@ const uploadToQiniu = async (filename) => {
     });
 };
 
-const startUpload = async () => {
-    const files = fs.readdirSync(resolve(__dirname, '../pics'), 'utf8');
+export const startUpload = async () => {
+    const files = fs.readdirSync(resolve(__dirname, '../../','../graduate/pics'), 'utf8');
     for (let i = 0, file = null; file = files[i++];) {
         try {
             const result = await uploadToQiniu(file);
-            console.log(result);
+            await savePic(result);
         } catch (err) {
             console.log('err=>', err);
         }
     }
 };
 
-startUpload();
+const savePic = async (picInfo) => {
+    const pic = new Pic({
+        picKey: picInfo.key,
+        picHash: picInfo.hash,
+    });
+
+    await pic.save();
+};
