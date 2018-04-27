@@ -33,4 +33,4 @@ class App {
 
 const app = new App();
 
-startUpload();
+// startUpload();

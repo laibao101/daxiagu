@@ -22,11 +22,11 @@ const config = new qiniu.conf.Config();
 config.zone = qiniu.zone.Zone_z2;
 
 const uploadToQiniu = async (filename) => {
-    const localFile = resolve(__dirname, '../../pics', filename);
+    const localFile = resolve('pics', filename);
     const formUploader = new qiniu.form_up.FormUploader(config);
     const putExtra = new qiniu.form_up.PutExtra();
     const key = nanoid() + '.png';
-    console.log(`开始上传，文件名:${key}`);
+    console.log(`开始上传，文件名: ${key}`);
     // 文件上传
     return new Promise((resolve, reject) => {
         formUploader.putFile(uploadToken, key, localFile, putExtra, function (respErr, respBody, respInfo) {
@@ -35,7 +35,8 @@ const uploadToQiniu = async (filename) => {
                 throw respErr;
             }
             if (respInfo.statusCode === 200) {
-                console.log('上传文件成功');
+                resolve(respBody);
+                console.log(`文件 ${key} 上传成功`);
             } else {
                 reject(respBody);
             }
@@ -44,7 +45,7 @@ const uploadToQiniu = async (filename) => {
 };
 
 export const startUpload = async () => {
-    const files = fs.readdirSync(resolve(__dirname, '../../','../graduate/pics'), 'utf8');
+    const files = fs.readdirSync(resolve('pics'), 'utf8');
     for (let i = 0, file = null; file = files[i++];) {
         try {
             const result = await uploadToQiniu(file);
@@ -60,6 +61,6 @@ const savePic = async (picInfo) => {
         picKey: picInfo.key,
         picHash: picInfo.hash,
     });
-
     await pic.save();
+    console.log(`文件 ${picInfo.key} 保存成功`);
 };
