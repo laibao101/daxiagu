@@ -1,10 +1,15 @@
 import mongoose from 'mongoose';
 const {Schema} = mongoose;
-const {ObjectId} = Schema.Types;
 
 const CommentScheme = new Schema({
-    comment: String,
-    like: Number,
+    comment: {
+        type: String,
+        required: true,
+    },
+    like: {
+        type: Number,
+        default: 0,
+    },
     meta: {
         createdAt: {
             type: Date,

@@ -1,9 +1,11 @@
 import mongoose from 'mongoose';
 const {Schema} = mongoose;
-const {ObjectId} = Schema.Types;
 
 const TagScheme = new Schema({
-    tag: String,
+    tag: {
+        type: String,
+        require: true,
+    },
     meta: {
         createdAt: {
             type: Date,
