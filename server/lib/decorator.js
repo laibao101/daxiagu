@@ -19,7 +19,7 @@ export class Route {
         glob.sync(resolve(this.apiPath,'./**/*.js')).forEach(require);
 
         for (let [conf, controller] of routerMap) {
-            const controllers = makeArray(controller);
+            const controllers = makeArray(controller.bind(conf.target));
             let prefixPath = conf.target[symbolPrefix];
             if(prefixPath) {
                 prefixPath = normalizePath(prefixPath);
@@ -74,3 +74,17 @@ export const all = path => router({
     method:'all',
     path,
 });
+
+
+export const service = service => {
+    return function(target, key, descriptor) {
+        const type = typeof service;
+
+        if (type === 'object') {
+            target[key] = service;
+        } else if (type === 'function') {
+            target[key] = new service();
+        }
+        return target;
+    }
+}
