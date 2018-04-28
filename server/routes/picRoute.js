@@ -8,28 +8,24 @@ export class PicController {
 
     @get('/all')
     async getAllPics(ctx, next) {
-        return ctx.body = {
-            msg: 'success',
-        };
-
-        // try {
-        //     const pics = await this.picService.getAllPics();
-        //     const total = await this.picService.getPicsTogal();
-        //     ctx.body = {
-        //         code: 0,
-        //         data: {
-        //             pics,
-        //             total,
-        //         },
-        //         msg: 'success',
-        //     };
-        // } catch (error) {
-        //     ctx.body = {
-        //         code: 1,
-        //         data: {},
-        //         msg: '服务器错误',
-        //     };
-        // }
+        try {
+            const pics = await this.picService.getAllPics();
+            const total = await this.picService.getPicsTogal();
+            ctx.body = {
+                code: 0,
+                data: {
+                    pics,
+                    total,
+                },
+                msg: 'success',
+            };
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: {},
+                msg: '服务器错误',
+            };
+        }
     }
 
     @get('/:id')
