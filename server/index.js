@@ -1,8 +1,8 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-import {connect, initSchemas} from "./database";
+// import {connect, initSchemas} from "./database";
 import {router} from "./middlewares/router";
-import {startUpload} from "./upload";
+// import {startUpload} from "./upload";
 
 class App {
     constructor() {
