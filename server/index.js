@@ -28,8 +28,8 @@ class App {
 
 
     async connect() {
-        initSchemas();
-        return connect();
+        // initSchemas();
+        // return connect();
     }
 
     listen() {
