@@ -1,21 +1,32 @@
 
 module.exports = {
-    entry: './start.js',
+    entry: './server/index.js',
     output: {
         filename: 'server.js',
         path: __dirname + '/dist/server',
     },
     target: 'node',
-    mode: 'production',
+    mode: 'development',
+    context: __dirname,
+    node: {
+        console: true,
+        global: true,
+        process: true,
+        Buffer: true,
+        __filename: true,
+        __dirname: true,
+        setImmediate: true,
+        path: true
+    },
     module: {
         rules: [
             {
                 test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        presets: ['env']
+                        presets: ["env", "stage-0"],
                     }
                 }
             }

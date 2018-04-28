@@ -1,9 +1,9 @@
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-// import {connect, initSchemas} from "./database";
+import {connect, initSchemas} from "./database";
 import {router} from "./middlewares/router";
 // import {startUpload} from "./upload";
-
+import logger from 'koa-logger';
 const port = process.env.PORT || 4500;
 
 class App {
@@ -15,6 +15,7 @@ class App {
     async init() {
         await this.connect();
         this.app = new Koa();
+        this.app.use(logger());
         this.initParser();
         this.initRouter();
         this.listen();
@@ -30,8 +31,8 @@ class App {
 
 
     async connect() {
-        // initSchemas();
-        // return connect();
+        initSchemas();
+        return connect();
     }
 
     listen() {
