@@ -4,8 +4,7 @@ import {resolve} from 'path';
 import {db} from '../config';
 
 mongoose.Promise = global.Promise;
-const url = `mongodb://${db.host}:${db.port}/${db.database}`;
-
+const url = `mongodb://laibao:laibao@ds014658.mlab.com:14658/daxiagu`;
 
 export const initSchemas = () => {
     glob.sync(resolve(__dirname, './schema', '**/*.js')).forEach(require);
