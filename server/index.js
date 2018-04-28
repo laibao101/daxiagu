@@ -4,6 +4,8 @@ import bodyParser from 'koa-bodyparser';
 import {router} from "./middlewares/router";
 // import {startUpload} from "./upload";
 
+const port = process.env.PORT || 4500;
+
 class App {
     constructor() {
         this.init()
@@ -33,7 +35,7 @@ class App {
     }
 
     listen() {
-        this.app.listen(`4500`, () => console.log(`app is listening at 4500`));
+        this.app.listen(port, () => console.log(`app is listening at ${port}`));
     }
 }
 
