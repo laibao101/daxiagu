@@ -5,6 +5,9 @@ import {router} from "./middlewares/router";
 // import {startUpload} from "./upload";
 import logger from 'koa-logger';
 const port = process.env.PORT || 4500;
+import fs from 'fs';
+import path from 'path';
+import serve from 'koa-static';
 
 class App {
     constructor() {
@@ -18,6 +21,7 @@ class App {
         this.app.use(logger());
         this.initParser();
         this.initRouter();
+        this.app.use(serve(path.resolve('client/dist/')));
         this.listen();
     }
 
@@ -41,5 +45,6 @@ class App {
 }
 
 const app = new App();
+
 
 // startUpload();

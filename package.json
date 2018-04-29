@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon start.js",
+        "start": "npm run build:client && nodemon start.js",
         "client": "webpack-dev-server --config webpack.config.dev.js --progress --color",
-        "build:server": "webpack --progress"
+        "build:server": "webpack --progress",
+        "build:client": "webpack --config webpack.config.prod.js --progress --color"
     },
     "keywords": [],
     "author": "",
@@ -30,6 +31,7 @@
         "koa-bodyparser": "^4.2.0",
         "koa-logger": "^3.2.0",
         "koa-router": "^7.4.0",
+        "koa-static": "^4.0.2",
         "mongoose": "^5.0.16",
         "nanoid": "^1.0.2",
         "nodemon": "^1.17.3",
