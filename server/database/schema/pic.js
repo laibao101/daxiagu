@@ -8,7 +8,10 @@ const PicScheme = new Schema({
         unique: true,
     },
     picHash: String,
-    like: Number,
+    likes: {
+        type: Number,
+        default: 0
+    },
     comments: [{
         type:ObjectId,
         ref: 'Comment'

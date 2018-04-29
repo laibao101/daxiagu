@@ -13,4 +13,10 @@ export default class PicService {
     async getPicsTogal() {
         return await Pic.find({}).count();
     }
+
+    async picLike(id) {
+        const pic = await Pic.findOne({_id: id});
+        const {likes} = pic;
+        return await pic.update({likes: likes + 1});
+    }
 }
