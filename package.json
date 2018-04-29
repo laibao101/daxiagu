@@ -4,9 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "npm run build:client && nodemon start.js",
+        "start": "npm run build:client && node start.js",
         "client": "webpack-dev-server --config webpack.config.dev.js --progress --color",
         "build:server": "webpack --progress",
+        "server": "nodemon start.js",
         "build:client": "webpack --config webpack.config.prod.js --progress --color"
     },
     "keywords": [],

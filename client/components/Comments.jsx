@@ -29,9 +29,10 @@ export default class Comments extends React.Component {
         });
     }
     render() {
+        const {commnets = []} = this.props.post;
         return (
             <div className="comments">
-                {this.props.post.comments.map(this.renderComments)}
+                {comments.map(this.renderComments)}
                 <form ref="commentForm" className="comment-form" onSubmit={this.handelSubmit}>
                     <input type="text" ref="comment" placeholder="添加一个评论" />
                     <input type="submit" hidden />
