@@ -48,4 +48,25 @@ export class PicController {
             };
         }
     }
+
+    @get('/likes/:id')
+    async picLike(ctx, next) {
+        try {
+            const {id} = ctx.params;
+            const pic = await this.picService.picLike(id);
+            ctx.body = {
+                code: 0,
+                data: {
+                    pic,
+                },
+                msg: 'success',
+            };
+        } catch (error) {
+            ctx.body = {
+                code: 1,
+                data: {},
+                msg: '服务器错误',
+            };
+        }
+    }
 }
