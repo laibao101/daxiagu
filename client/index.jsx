@@ -16,17 +16,17 @@ const router = () => {
     return (
         <BrowserRouter>
             <Switch>
-                <Route path="/" children={({ match, rest }) => {
+                <Route exact path="/" children={({ match, ...rest }) => {
                     return (
                         <App>
-                            <PhotoGrid />
+                            <PhotoGrid {...rest}/>
                         </App>
                     )
                 }} />
-                <Route path="/view/:postId" children={({ match, rest }) => {
+                <Route path="/view/:postId" children={({ match, ...rest }) => {
                     return (
                         <App>
-                            <Single />
+                            <Single match={match} {...rest}/>
                         </App>
                     )
                 }} />

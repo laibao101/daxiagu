@@ -1,36 +1,39 @@
 import React from 'react';
 
 export default class Comments extends React.Component {
-    renderComments(comment, i) {
+    constructor(){
+        super();
+        this.renderComments = this.renderComments.bind(this);
+        this.handelSubmit = this.handelSubmit.bind(this);
+    }
+    renderComments(comment) {
         return (
-            <div className="comment" key={i}>
+            <div className="comment" key={comment._id}>
                 <p>
-                    <strong>{comment.user}</strong>
-                    {comment.text}
-                    <button className="remove-comment" onClick={this.props.removeComment.bind(null, this.props.params.postId, i)}>&times;</button>
+                    {comment.comment}
                 </p>
             </div>
-        )
+        );
     }
     handelSubmit(e) {
         e.preventDefault();
-        const { postId } = this.props.params;
-        const author = this.refs.author.value;
+        const postId = this.props.post._id;
         const comment = this.refs.comment.value;
-        if (!author || !comment) {
+        if (!comment) {
             return false;
         }
-        this.props.addComment(postId, author, comment);
-        this.refs.commentForm.reset();
-        this.refs.author.focus();
+        this.props.addComment(postId, comment)
+        .then(() => {
+            this.props.getPost();
+            this.refs.commentForm.reset();
+        });
     }
     render() {
         return (
             <div className="comments">
-                {this.props.postComments.map(this.renderComments)}
+                {this.props.post.comments.map(this.renderComments)}
                 <form ref="commentForm" className="comment-form" onSubmit={this.handelSubmit}>
-                    <input type="text" ref="author" placeholder="author" />
-                    <input type="text" ref="comment" placeholder="comment" />
+                    <input type="text" ref="comment" placeholder="添加一个评论" />
                     <input type="submit" hidden />
                 </form>
             </div>

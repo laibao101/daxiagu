@@ -2,7 +2,7 @@ import { Http } from "../util";
 
 //increment
 export const increment = (id) => async (dispatch) => {
-    const res = await Http.get(`/api/v0/pics/like/${id}`)
+    const res = await Http.get(`/api/v0/pics/likes/${id}`);
 	dispatch ({
         type:'INCREMENT_LIKES',
         id,
@@ -10,13 +10,8 @@ export const increment = (id) => async (dispatch) => {
 }
 
 //add commnet
-export function addComment (postId,author,comment) {
-	return {
-		type:'ADD_COMMENT',
-		postId,
-		author,
-		comment
-	}
+export const addComment = (postId,comment) => async (dispatch) => {
+    return await Http.post(`/api/v0/comments/${postId}`, {comment});
 }
 
 //remove commnet

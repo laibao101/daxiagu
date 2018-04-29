@@ -10,14 +10,14 @@ function posts (state=[],action) {
                 if(item._id === id) {
                     return {
                         ...item,
-                        likes: 1
+                        likes: item.likes + 1,
                     }
                 }
             });
 			return {
                 ...state,
                 posts,
-            }
+            };
             break;
         case 'GET_POSTS':
             return {
