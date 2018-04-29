@@ -13,6 +13,7 @@ function posts (state=[],action) {
                         likes: item.likes + 1,
                     }
                 }
+                return item;
             });
 			return {
                 ...state,

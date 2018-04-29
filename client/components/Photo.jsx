@@ -4,11 +4,12 @@ import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class Photo extends React.Component {
     render() {
-        const { post } = this.props;
+		const { post } = this.props;
+		console.log(post)
 		return (
 			<figure className="grid-figure">
 				<div className="grid-photo-wrap">
-					<Link to={`/view/${post.picHash}`}>
+					<Link to={`/view/${post.picKey}`}>
 						<img src={`http://pic.webtotal.cn/${post.picKey}-daxiagu`} alt={post.picKey} className="grid-photo"/>
 					</Link>
 					<CSSTransitionGroup

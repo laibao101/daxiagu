@@ -29,7 +29,7 @@ export default class Comments extends React.Component {
         });
     }
     render() {
-        const {commnets = []} = this.props.post;
+        const {comments = []} = this.props.post;
         return (
             <div className="comments">
                 {comments.map(this.renderComments)}

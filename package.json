@@ -7,7 +7,7 @@
         "start": "npm run build:client && node start.js",
         "client": "webpack-dev-server --config webpack.config.dev.js --progress --color",
         "build:server": "webpack --progress",
-        "server": "nodemon start.js",
+        "server": "cross-env NODE_ENV=production nodemon start.js",
         "build:client": "webpack --config webpack.config.prod.js --progress --color"
     },
     "keywords": [],

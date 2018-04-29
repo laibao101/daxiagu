@@ -18,11 +18,17 @@ class App {
     async init() {
         await this.connect();
         this.app = new Koa();
-        this.app.use(logger());
+       
         this.initParser();
         this.initRouter();
         this.app.use(serve(path.resolve('client/dist/')));
         this.listen();
+    }
+
+    setLogger() {
+        if (process.env.NODE_ENV === 'dev') {
+            this.app.use(logger());
+        }
     }
 
     initParser() {

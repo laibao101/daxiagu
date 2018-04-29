@@ -14,7 +14,7 @@ export const connect = async () => {
     let maxConnectTimes = 0;
 
     return new Promise((resolve, reject) => {
-        if (process.env.NODE_ENV !== 'prod') {
+        if (process.env.NODE_ENV === 'dev') {
             mongoose.set('debug', true);
         }
 
